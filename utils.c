@@ -6,11 +6,24 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:09:58 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/14 19:52:22 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:36:36 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	errormsg(int code)
+{
+	if (code == 1)
+		perror("Numero de argumentos invalido");
+	else if (code == 2)
+		perror("Error al leer archivo .txt");
+	else if (code == 3)
+		perror("Ruta/comando inválido");
+	else if (code == 4)
+		perror("Error al crear un proceso hijo");
+	exit (code);
+}
 
 void	freemat(char **mat)
 {
@@ -55,13 +68,10 @@ char	*checkpath(char *order, char **paths)
 		free(slash);
 		printf("%s\n", route);
 		if (!access(route, X_OK))
-		{
-			//liberar route tras la salida.
 			return (route);
-		}
 		free(route);
 		i++;
 	}
-	//flag para marcar que no se ha encontrado ruta posible 
+	errormsg(3);
 	return (0);
 }
