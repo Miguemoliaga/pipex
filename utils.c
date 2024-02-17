@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:09:58 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/16 19:36:36 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/17 20:31:20 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	errormsg(int code)
 		perror("Ruta/comando inválido");
 	else if (code == 4)
 		perror("Error al crear un proceso hijo");
+	else if (!code)
+		perror("Pasa x aqui\n");
 	exit (code);
 }
 
@@ -59,7 +61,7 @@ char	*checkpath(char *order, char **paths)
 	char	*route;
 
 	i = 0;
-	if (access(order, X_OK))
+	if (!access(order, X_OK))
 		return (order);
 	while (paths[i])
 	{

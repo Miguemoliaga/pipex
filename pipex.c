@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:48:29 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/16 19:38:16 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/17 20:43:35 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_execute(char *com, char **env)
 	mat = ft_split(com, ' ');
 	route = checkpath(mat[0], paths);
 	freemat(paths);
-	execve(route, mat, env);
+	if (execve(route, mat, env) < 0)
+		errormsg(3);
 }
 
 void	proc_in(int *pipe, char *in_file, char *com, char **env)
@@ -73,6 +74,6 @@ int	main(int argc, char **argv, char **env)
 		errormsg(3);
 	if (!proc_id)
 		proc_out(arr, argv[4], argv[3], env);
-	waitpid(proc_id, NULL, 0);
+	//waitpid(proc_id, NULL, 0);
 	return (0);
 }
