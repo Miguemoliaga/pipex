@@ -6,14 +6,14 @@
 #    By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/12 16:10:48 by mmartine          #+#    #+#              #
-#    Updated: 2024/02/14 19:11:40 by mmartine         ###   ########.fr        #
+#    Updated: 2024/02/19 19:22:18 by mmartine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= pipex
 CC		= gcc
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g3 -fsanitize=address
 
 SRCS	=	pipex.c \
 			utils.c

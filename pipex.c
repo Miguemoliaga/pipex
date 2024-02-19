@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:48:29 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/19 19:18:50 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:16:01 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char **argv, char **env)
 {
 	int		arr[2];
 	pid_t	proc_id;	
+	int		status;
 
 	if (argc != 5)
 		errormsg(1);
@@ -78,8 +79,10 @@ int	main(int argc, char **argv, char **env)
 		errormsg(4);
 	if (!proc_id)
 		proc_in(arr, argv[1], argv[2], env);
-	if (waitpid(proc_id, NULL, WNOHANG) == -1)
+	if (waitpid(proc_id, &status, WNOHANG) == -1)
 		errormsg(5);
+	if (WIFSIGNALED(status))
+		exit (0);
 	proc_id = fork();
 	//atexit(showleaks);
 	if (proc_id == -1)

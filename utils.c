@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:09:58 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/19 19:06:23 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:54:48 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	freemat(char **mat)
 	int	i;
 
 	i = 0;
-	while (mat[i])
+	while (mat && mat[i])
 	{
 		free(mat[i]);
 		i++;
@@ -65,7 +65,7 @@ char	*checkpath(char *order, char **paths)
 	i = 0;
 	if (!access(order, X_OK))
 		return (order);
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		slash = ft_strjoin(paths[i], "/");
 		route = ft_strjoin(slash, order);

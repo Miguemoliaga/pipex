@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 19:57:48 by mmartine          #+#    #+#             */
-/*   Updated: 2021/10/20 20:01:12 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:17:26 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_putnbr_fd(int n, int fd)
 		write(fd, &c, 1);
 	}
 	else if (n < 10)
-	{	
+	{
 		c = n % 10 + '0';
 		write(fd, &c, 1);
 	}

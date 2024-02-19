@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 19:58:26 by mmartine          #+#    #+#             */
-/*   Updated: 2021/10/20 20:01:12 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:17:36 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		{
 			i++;
 			j = 0;
-		}	
+		}
 	}
 	return (NULL);
 }
