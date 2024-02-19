@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:09:58 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/17 20:31:20 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:06:23 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void	errormsg(int code)
 		perror("Numero de argumentos invalido");
 	else if (code == 2)
 		perror("Error al leer archivo .txt");
-	else if (code == 3)
+	else if (code == 127)
 		perror("Ruta/comando inválido");
 	else if (code == 4)
 		perror("Error al crear un proceso hijo");
+	else if (code == 4)
+		perror("TIMEOUT");
 	else if (!code)
 		perror("Pasa x aqui\n");
 	exit (code);
@@ -74,6 +76,6 @@ char	*checkpath(char *order, char **paths)
 		free(route);
 		i++;
 	}
-	errormsg(3);
+	errormsg(127);
 	return (0);
 }
