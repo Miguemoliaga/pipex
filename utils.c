@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:09:58 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/19 19:54:48 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:13:53 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ void	errormsg(int code)
 		perror("Ruta/comando inválido");
 	else if (code == 4)
 		perror("Error al crear un proceso hijo");
-	else if (code == 4)
+	else if (code == 5)
 		perror("TIMEOUT");
-	else if (!code)
-		perror("Pasa x aqui\n");
-	exit (code);
+	exit (1);
 }
 
 void	freemat(char **mat)
@@ -70,7 +68,6 @@ char	*checkpath(char *order, char **paths)
 		slash = ft_strjoin(paths[i], "/");
 		route = ft_strjoin(slash, order);
 		free(slash);
-		printf("%s\n", route);
 		if (!access(route, X_OK))
 			return (route);
 		free(route);

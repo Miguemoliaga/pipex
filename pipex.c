@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:48:29 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/19 20:16:01 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:24:28 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	ft_execute(char *com, char **env)
 	mat = ft_split(com, ' ');
 	route = checkpath(mat[0], paths);
 	freemat(paths);
-	if (execve(route, mat, env) < 0)
-		errormsg(127);
+	execve(route, mat, env);
 	freemat(mat);
 	free(route);
 }
@@ -81,14 +80,15 @@ int	main(int argc, char **argv, char **env)
 		proc_in(arr, argv[1], argv[2], env);
 	if (waitpid(proc_id, &status, WNOHANG) == -1)
 		errormsg(5);
-	if (WIFSIGNALED(status))
-		exit (0);
+	if (WEXITSTATUS(status) == EXIT_FAILURE)
+		return (-1);
 	proc_id = fork();
-	//atexit(showleaks);
 	if (proc_id == -1)
 		errormsg(4);
 	if (!proc_id)
 		proc_out(arr, argv[4], argv[3], env);
+	if (waitpid(proc_id, &status, WNOHANG) == -1)
+		errormsg(5);
 	close(arr[0]);
 	return (0);
 }
