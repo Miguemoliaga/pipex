@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:09:58 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/21 17:31:25 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:44:30 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	errormsg(int code, char *file)
 {
+	if (file)
+		unlink(file);
 	if (code == 1)
 		perror("Numero de argumentos invalido");
 	else if (code == 2)
@@ -24,8 +26,6 @@ void	errormsg(int code, char *file)
 		perror("Error al crear un proceso hijo");
 	else if (code == 5)
 		perror("TIMEOUT");
-	if (file)
-		unlink(file);
 	exit (1);
 }
 
