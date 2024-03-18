@@ -6,16 +6,14 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 16:09:58 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/23 17:44:30 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:05:16 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	errormsg(int code, char *file)
+void	errormsg(int code)
 {
-	if (file)
-		unlink(file);
 	if (code == 1)
 		perror("Numero de argumentos invalido");
 	else if (code == 2)
@@ -56,7 +54,7 @@ char	**parsepath(char **mat)
 	return (0);
 }
 
-char	*checkpath(char *order, char **paths, char *file)
+char	*checkpath(char *order, char **paths)
 {
 	int		i;
 	char	*slash;
@@ -75,6 +73,6 @@ char	*checkpath(char *order, char **paths, char *file)
 		free(route);
 		i++;
 	}
-	errormsg(127, file);
+	errormsg(127);
 	return (0);
 }

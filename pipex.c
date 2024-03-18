@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:48:29 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/23 17:53:51 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:05:56 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	showleaks(void)
 	system("leaks -q pipex");
 }
 
-void	ft_execute(char *com, char **env, char *file)
+void	ft_execute(char *com, char **env)
 {
 	char	**mat;
 	char	*route;
@@ -25,28 +25,28 @@ void	ft_execute(char *com, char **env, char *file)
 
 	paths = parsepath(env);
 	mat = ft_split(com, ' ');
-	route = checkpath(mat[0], paths, file);
+	route = checkpath(mat[0], paths);
 	freemat(paths);
 	execve(route, mat, env);
 	freemat(mat);
 	free(route);
 }
 
-void	proc_in(int *pipe, char **argv, char *com, char **env)
+void	proc_in(int *pipe, char *infile, char *com, char **env)
 {
 	int	fd;
 
 	close(pipe[0]);
-	if (access(argv[1], F_OK))
-		errormsg(2, NULL);
-	fd = open(argv[1], O_RDONLY);
+	if (access(infile, F_OK))
+		errormsg(2);
+	fd = open(infile, O_RDONLY);
 	if (fd < 0)
-		errormsg(2, NULL);
+		errormsg(2);
 	dup2(fd, 0);
 	close(fd);
 	dup2(pipe[1], 1);
 	close(pipe[1]);
-	ft_execute(com, env, argv[4]);
+	ft_execute(com, env);
 }
 
 void	proc_out(int *pipe, char *out_file, char *com, char **env)
@@ -60,15 +60,12 @@ void	proc_out(int *pipe, char *out_file, char *com, char **env)
 	close(pipe[1]);
 	fd = open(out_file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd < 0)
-		errormsg(2, NULL);
+		errormsg(2);
 	dup2(pipe[0], 0);
 	close(pipe[0]);
 	dup2(fd, 1);
 	close(fd);
-	if (file)
-		ft_execute(com, env, out_file);
-	else
-		ft_execute(com, env, NULL);
+	ft_execute(com, env);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -78,24 +75,24 @@ int	main(int argc, char **argv, char **env)
 	int		status;
 
 	if (argc != 5)
-		errormsg(1, NULL);
+		errormsg(1);
 	pipe(arr);
 	proc_id = fork();
 	if (proc_id == -1)
-		errormsg(4, NULL);
+		errormsg(4);
 	if (!proc_id)
-		proc_in(arr, argv, argv[2], env);
+		proc_in(arr, argv[1], argv[2], env);
 	if (waitpid(proc_id, &status, WNOHANG) == -1)
-		errormsg(5, argv[4]);
+		errormsg(5);
 	if (WEXITSTATUS(status) == EXIT_FAILURE)
-		errormsg(0, argv[4]);
+		return (-1);
 	proc_id = fork();
 	if (proc_id == -1)
-		errormsg(4, NULL);
+		errormsg(4);
 	if (!proc_id)
 		proc_out(arr, argv[4], argv[3], env);
 	if (waitpid(proc_id, &status, WNOHANG) == -1)
-		errormsg(5, argv[4]);
+		errormsg(5);
 	close(arr[0]);
 	return (0);
 }

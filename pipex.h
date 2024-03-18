@@ -6,7 +6,7 @@
 /*   By: mmartine <mmartine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:47:56 by mmartine          #+#    #+#             */
-/*   Updated: 2024/02/23 17:34:40 by mmartine         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:05:21 by mmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 char	**parsepath(char **mat);
 void	freemat(char **mat);
-char	*checkpath(char *order, char **paths, char *file);
-void	errormsg(int code, char *file);
+char	*checkpath(char *order, char **paths);
+void	errormsg(int code);
 
 #endif
